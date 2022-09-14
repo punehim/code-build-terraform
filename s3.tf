@@ -6,6 +6,6 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "file_upload_bucket" {
-  bucket = "pappua-ginni"
+  bucket = "lalua-code-build-ginni"
   acl    = "private"
 }
