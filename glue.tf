@@ -7,7 +7,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "application-glue-job-bucket"     # You need to change this to your bucket name
+    bucket = "my-s4-bucket-20220706123852359500000001"     # You need to change this to your bucket name
     key    = "s3_proxy/gluejob/terraform.tfstate"
     region = "us-east-2"
   }
