@@ -79,7 +79,7 @@ class GLueTransformation(InitializeGlue):
 if __name__ == "__main__":
 
     helper = GLueTransformation(
-        input_location="XXXXXXXXXXXX",
-        output_location="XXXXXXXXXXXX",
+        input_location="Himanshu",
+        output_location="Siddhesh",
     )
     helper.run()
