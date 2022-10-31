@@ -2,60 +2,20 @@ provider "aws" {
   region     = var.aws_region
   access_key = var.access_key
   secret_key = var.secret_key
-  token = var.token
+  #token = var.token
 }
 
-
-resource "aws_iam_role" "glue" {
-  name = "AWSGlueServiceRoleDefault"
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "glue.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
-}
-EOF
+data "aws_s3_bucket" "selected" {
+  bucket = "terraform-glue-job-bucket"
 }
 
-resource "aws_iam_role_policy_attachment" "glue_service" {
-    role = "${aws_iam_role.glue.id}"
-    policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
-}
-
-## If you don't already have a policy,
-resource "aws_iam_role_policy" "my_s3_policy" {
-  name = "my_s3_policy"
-  role = "${aws_iam_role.glue.id}"
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:*"
-      ],
-      "Resource": [
-        "arn:aws:s3:::${var.bucket-name}",
-        "arn:aws:s3:::${var.bucket-name}/*"
-      ]
-    }
-  ]
-}
-EOF
+data "aws_iam_role" "example" {
+  name = "allserviceaccess"
 }
 
 resource "aws_glue_job" "glue-job" {
   name = "${var.job-name}"
-  role_arn = "${aws_iam_role.glue.arn}"
+  role_arn = data.aws_iam_role.example.arn
   description = var.description
   max_retries = var.max-retries
   timeout = var.timeout
@@ -63,7 +23,7 @@ resource "aws_glue_job" "glue-job" {
   worker_type  = var.worker-type
   
   command {
-    script_location = "s3://${var.bucket-name}/Scripts/${var.file-name}" 
+    script_location = "s3://terraform-glue-job-bucket/Scripts/${var.file-name}" 
     python_version = "3"
   }
   execution_property {
