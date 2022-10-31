@@ -23,7 +23,7 @@ resource "aws_glue_job" "glue-job" {
   worker_type  = var.worker-type
   
   command {
-    script_location = "https://github.com/punehim/code-build-terraform.git/${var.file-name}" 
+    script_location = "s3://terraform-glue-job-bucket/Scripts/${var.file-name}" 
     python_version = "3"
   }
   execution_property {
