@@ -28,12 +28,12 @@ variable "job-language" {
   default = "python"
 }
 
-variable "bucket-name" {
-  default = "terraform-glue-job-bucket"
-}
+#variable "bucket-name" {
+ # default = "application-glue-job-bucket"
+#}
 
 variable "job-name" {
-  default = "compress-small-files-large-files"
+  default = "terraform-glue-test"
 }
 variable "file-name" {
   default = "glue-compress.py"
@@ -55,7 +55,7 @@ variable "secret_key" {
   description = "The aws development account secret key"
 }
 
-variable "token" {
-  type        = string
-  description = "The aws development account secret key"
-}
+#variable "token" {
+ # type        = string
+  #description = "The aws development account secret key"
+#}
