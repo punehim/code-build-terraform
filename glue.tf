@@ -5,13 +5,6 @@ provider "aws" {
   token = var.token
 }
 
-terraform {
-  backend "s3" {
-    bucket = "my-s4-bucket-20220706123852359500000001"     # You need to change this to your bucket name
-    key    = "s3_proxy/gluejob/terraform.tfstate"
-    region = "us-east-2"
-  }
-}
 
 resource "aws_iam_role" "glue" {
   name = "AWSGlueServiceRoleDefault"
